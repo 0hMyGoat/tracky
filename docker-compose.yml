@@ -1,0 +1,44 @@
+services:
+  gateway:
+    image: nginx
+    container_name: gateway
+    ports:
+      - '443:443'
+    volumes:
+      - ./reverse-proxy/conf.d/:/etc/nginx/conf.d/
+      - './reverse-proxy/ssl/:/etc/nginx/ssl/'
+    depends_on:
+      - api
+      - front
+      - mysql
+  mysql:
+    container_name: mysql
+    build:
+      context: ./bdd
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: event
+      MYSQL_USER: event
+      MYSQL_PASSWORD: p@ss4event
+    ports:
+      - "3306:3306"
+    volumes:
+      - data:/var/lib/mysql
+  api:
+    container_name: api
+    restart: unless-stopped
+    build:
+      context: ./back
+      dockerfile: /buildImage/Dockerfile
+    depends_on:
+      - mysql
+  front:
+    container_name: front
+    restart: unless-stopped
+    build:
+      context: ./front
+    depends_on:
+      - api
+volumes:
+    data:

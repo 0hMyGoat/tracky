@@ -1,13 +1,15 @@
-import { Checkbox } from "primereact/checkbox";
+import { Checkbox, CheckboxChangeEvent } from "primereact/checkbox";
 import taskService from "../../services/Task.service.ts";
-import React, { useContext } from "react";
+import { useContext } from "react";
 import { TasksContext } from "../../context/TasksContext.ts";
+import TaskModel from "../../models/Task.model.ts";
 
-const CheckTask = (task: Task) => {
+const CheckTask = (task: TaskModel) => {
 
   const {tasks, setTasks} = useContext(TasksContext);
 
-  const onChange = (e) => {
+  const onChange = (e: CheckboxChangeEvent) => {
+    if (!task.id) return;
     if (e.checked) {
       taskService.completeTask(task.id);
     } else {
@@ -20,7 +22,7 @@ const CheckTask = (task: Task) => {
   return (
     <Checkbox
       checked={ task.completed || false }
-      onChange={ (e) => {
+      onChange={ (e: CheckboxChangeEvent) => {
         onChange(e);
       }}
     />

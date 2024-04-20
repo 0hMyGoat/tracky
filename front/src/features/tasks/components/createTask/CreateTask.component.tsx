@@ -6,6 +6,7 @@ import DEFAULT_TASK from "../../constants/DEFAULT_TASK.ts";
 import NewTaskForm from "../newTaskForm/NewTaskForm.component.tsx";
 import { TasksContext } from "../../context/TasksContext.ts";
 import TasksService from "../../../tasks/services/Task.service.ts";
+import TaskModel from "../../models/Task.model.ts";
 
 const CreateTask = () => {
 
@@ -35,18 +36,19 @@ const CreateTask = () => {
 
       <Dialog
         visible={ isDialogOpen }
+        header="Ajouter une tâche"
         onHide={ () => setDialogOpen(false) }
         footer={ <Button
           label="Ajouter"
           icon="pi pi-check"
           className="p-button-raised p-button-rounded"
           onClick={ () => {
-           TasksService.createTask(newTask)
-             .then((newTask: Task) => {
-              setTasks((tasks) => [...tasks, newTask]);
-              setNewTask(DEFAULT_TASK);
-              setDialogOpen(false);
-            });
+            TasksService.createTask(newTask)
+              .then((newTask: TaskModel) => {
+                setTasks((tasks) => [...tasks, newTask]);
+                setNewTask(DEFAULT_TASK);
+                setDialogOpen(false);
+              });
           } }
         /> }
       >

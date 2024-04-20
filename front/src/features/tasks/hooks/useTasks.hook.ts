@@ -1,16 +1,15 @@
 import React from 'react';
 import TaskService from "../services/Task.service.ts";
+import TaskModel from "../models/Task.model.ts";
 
 const useTasksHook = () => {
-    const [tasks, setTasks] = React.useState([]);
-    const [isLoading, setIsLoading] = React.useState(true);
-    const [error, setError] = React.useState(null);
+    const [tasks, setTasks] = React.useState<TaskModel[]>([]);
+    const [isLoading, setIsLoading] = React.useState<boolean>(true);
+    const [error, setError] = React.useState<any>(null);
 
     React.useEffect(() => {
         (async () => {
-            if ( !tasks.length ) {
               await getTasks();
-            }
         })()
     }, []);
 
@@ -18,10 +17,10 @@ const useTasksHook = () => {
         setIsLoading(true);
         setError(null);
         try {
-            const tasks = await TaskService.findAllTasks();
-            setTasks(tasks);
-        } catch (e: never) {
-            setError(e.message);
+            const tasks: TaskModel[] = await TaskService.findAllTasks();
+            setTasks(tasks || []);
+        } catch (e) {
+            setError(e);
         } finally {
             setIsLoading(false);
         }

@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import { useContext } from 'react';
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import DeleteTask from "../deleteTask/DeleteTask.component.tsx";
@@ -24,12 +24,21 @@ const TaskList = () => {
           body={ CheckTask }
           field="completed"
           header="Complété"
+          style={ {
+            width: '8rem'
+        } }
         />
-        <Column field="name" header="Nom"/>
+        <Column
+          field="name"
+          header="Nom"
+        />
         <Column
           body={ DeleteTask }
           exportable={ false }
-          style={ {minWidth: '12rem'} }
+          style={ {
+            justifySelf: "end",
+            width: '8rem'
+        } }
         />
       </DataTable>
     </>

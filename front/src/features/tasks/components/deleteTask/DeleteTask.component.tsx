@@ -1,15 +1,17 @@
 import taskService from "../../services/Task.service.ts";
 import { Button } from "primereact/button";
-import React, { useContext } from "react";
+import { useContext } from "react";
 import { TasksContext } from "../../context/TasksContext.ts";
+import TaskModel from "../../models/Task.model.ts";
 
-const DeleteTask = (task: Task) => {
+const DeleteTask = (task: TaskModel) => {
 
   const {tasks, setTasks} = useContext(TasksContext);
 
-  const deleteProduct = (task) => {
-      taskService.deleteTask(task.id);
-      setTasks(tasks.filter((t) => t.id !== task.id));
+  const deleteTask = (task: TaskModel) => {
+    if (!task.id) return;
+    taskService.deleteTask(task.id);
+    setTasks(tasks.filter((t) => t.id !== task.id));
   }
 
   return (
@@ -17,9 +19,9 @@ const DeleteTask = (task: Task) => {
       <Button
         icon="pi pi-trash"
         rounded
-        outlined
+        text
         severity="danger"
-        onClick={ () => deleteProduct(task) }
+        onClick={ () => deleteTask(task) }
       />
     </>
   );

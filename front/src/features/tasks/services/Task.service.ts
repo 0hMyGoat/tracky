@@ -1,4 +1,5 @@
 import TaskRepository from "./Task.repository.ts";
+import TaskModel from "../models/Task.model.ts";
 
 class TaskService {
 
@@ -6,19 +7,19 @@ class TaskService {
     return await TaskRepository.findAll();
   }
 
-  async createTask(task) {
+  async createTask(task: TaskModel) {
     return await TaskRepository.create(task);
   }
 
-  async completeTask(taskId) {
+  async completeTask(taskId: number) {
     return await TaskRepository.completeTask(taskId);
   }
 
-  async uncompleteTask(taskId) {
+  async uncompleteTask(taskId: number) {
     return await TaskRepository.uncompleteTask(taskId);
   }
 
-  async deleteTask(taskId) {
+  async deleteTask(taskId: number) {
     return await TaskRepository.deleteTask(taskId);
   }
 
