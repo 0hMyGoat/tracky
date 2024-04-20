@@ -16,5 +16,6 @@ FROM node:18-alpine As production
 WORKDIR /usr/src/app
 COPY --from=build /usr/src/app/dist/ dist/
 COPY --from=build /usr/src/app/node_modules/ node_modules/
+ENV NODE_ENV=production
 
 CMD [ "node", "dist/main.js" ]

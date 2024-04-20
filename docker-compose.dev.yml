@@ -8,11 +8,3 @@ services:
       MYSQL_DATABASE: tracky
       MYSQL_USER: tracky
       MYSQL_PASSWORD: p@ss4tracky
-  api:
-    build:
-      context: ./api
-      dockerfile: /Dockerfile
-    ports:
-      - "80:80"
-    depends_on:
-      - mysql

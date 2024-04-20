@@ -5,11 +5,11 @@ import CreateTask from "./components/createTask/CreateTask.component.tsx";
 import banner from "../../assets/tracky-banner.png";
 
 const TasksPage = () => {
-  const {tasks, setTasks} = useTasksHook();
+  const {tasks, setTasks, isLoading} = useTasksHook();
 
   return (
 
-    <TasksContext.Provider value={ {tasks, setTasks} }>
+    <TasksContext.Provider value={ {tasks, setTasks, isLoading} }>
         <img
           src={ banner }
           alt="logo"
@@ -20,7 +20,7 @@ const TasksPage = () => {
           } }
         />
         <TaskList/>
-        <CreateTask />
+        <CreateTask/>
     </TasksContext.Provider>
   );
 }

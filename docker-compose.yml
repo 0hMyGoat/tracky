@@ -13,26 +13,23 @@ services:
       - mysql
   mysql:
     container_name: mysql
-    build:
-      context: ./bdd
-    restart: unless-stopped
+    image: mysql:8
     environment:
       MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: event
-      MYSQL_USER: event
-      MYSQL_PASSWORD: p@ss4event
-    ports:
-      - "3306:3306"
+      MYSQL_DATABASE: tracky
+      MYSQL_USER: tracky
+      MYSQL_PASSWORD: p@ss4tracky
     volumes:
-      - data:/var/lib/mysql
+        - data:/var/lib/mysql
   api:
     container_name: api
     restart: unless-stopped
     build:
-      context: ./back
-      dockerfile: /buildImage/Dockerfile
+      context: ./api
     depends_on:
       - mysql
+    env_file:
+      - /api/.env.production.local
   front:
     container_name: front
     restart: unless-stopped
