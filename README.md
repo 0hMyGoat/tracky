@@ -1,13 +1,12 @@
 # Tracky ✅
 
-Tracky is a simple to do list app that allows you to keep track of your tasks and projects. 
-It is built using React.
+Tracky est une application de gestion de tâches.
 
 ## Features ✨
 
-- Add tasks
-- Delete tasks
-- Mark tasks as complete
+- Création de tâches
+- Suppression de tâches
+- Marquage de tâches comme terminées
 
 ---
 
@@ -57,6 +56,7 @@ Un reverse proxy permet la mise en place du HTTPS et la redirection des requête
 - Responsivité (actuellement OK jusque ~800px de largeur)
 - Ajout d'un swagger pour l'API
 - Storybook pour le front
+- Toaster et affichage des messages d'erreur dans le front.
 
 ---
 
@@ -72,7 +72,7 @@ Un reverse proxy permet la mise en place du HTTPS et la redirection des requête
 
 #### Steps 📝
 
-1. Remplissez le fichier `.env.development.local` avec les informations nécessaires (CF : `.env.example`)
+1. Remplissez le fichier `.env.production.local` avec les informations nécessaires (CF : `.env.example`)
 1. Run `docker-compose up --build`
 2. Visit `https://localhost`
 
