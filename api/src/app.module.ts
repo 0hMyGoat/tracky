@@ -9,7 +9,7 @@ import { Task } from './tasks/entities/task.entity';
   imports: [
     TasksModule,
     ConfigModule.forRoot({
-      envFilePath: ['.env', '.env.local'],
+      envFilePath: ['.env.production.local', '.env.development.local'],
     }),
     TypeOrmModule.forRoot({
       type: 'mysql',
