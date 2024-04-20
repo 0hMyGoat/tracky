@@ -6,6 +6,8 @@ import {
   Patch,
   Param,
   Delete,
+  BadRequestException,
+  NotFoundException,
 } from '@nestjs/common';
 import { TasksService } from './tasks.service';
 import { CreateTaskDto } from './dto/create-task.dto';
@@ -17,36 +19,55 @@ export class TasksController {
 
   @Post()
   create(@Body() createTaskDto: CreateTaskDto) {
+    if (!createTaskDto.name) {
+      throw new BadRequestException('The name is mandatory', {
+        cause: new Error(),
+        description: 'Please add a name to the task',
+      });
+    }
     return this.tasksService.create(createTaskDto);
   }
 
   @Get()
-  findAll() {
+  async findAll() {
     return this.tasksService.findAll();
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.tasksService.findOne(+id);
+  async findOne(@Param('id') id: string) {
+    const task = await this.tasksService.findOne(+id);
+
+    if (!task) {
+      throw new NotFoundException('Task not found', {
+        cause: new Error(),
+        description: `Task with id ${id} not found`,
+      });
+    }
+
+    return task;
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateTaskDto: UpdateTaskDto) {
+  async update(@Param('id') id: string, @Body() updateTaskDto: UpdateTaskDto) {
+    await this.findOne(id);
     return this.tasksService.update(+id, updateTaskDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
+  async remove(@Param('id') id: string) {
+    await this.findOne(id);
     return this.tasksService.remove(+id);
   }
 
   @Post(':id/complete')
-  complete(@Param('id') id: string) {
+  async complete(@Param('id') id: string) {
+    await this.findOne(id);
     return this.tasksService.completeTask(+id);
   }
 
   @Post(':id/uncomplete')
-  uncomplete(@Param('id') id: string) {
+  async uncomplete(@Param('id') id: string) {
+    await this.findOne(id);
     return this.tasksService.uncompleteTask(+id);
   }
 }
