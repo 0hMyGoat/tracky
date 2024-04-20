@@ -14,7 +14,13 @@ const DeleteTask = (task: Task) => {
 
   return (
     <>
-      <Button icon="pi pi-trash" rounded outlined severity="danger" onClick={ () => deleteProduct(task) }/>
+      <Button
+        icon="pi pi-trash"
+        rounded
+        outlined
+        severity="danger"
+        onClick={ () => deleteProduct(task) }
+      />
     </>
   );
 };

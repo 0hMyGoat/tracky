@@ -11,7 +11,15 @@ const TaskList = () => {
 
   return (
     <>
-      <DataTable value={ tasks }>
+      <DataTable
+        value={ tasks }
+        tableStyle={{
+          minWidth: "50rem",
+          maxWidth: "90rem",
+          margin: "auto",
+          marginTop: "2rem",
+        }}
+      >
         <Column
           body={ CheckTask }
           field="completed"
